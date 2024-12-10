@@ -1,11 +1,29 @@
-export enum Subjects{
-    TicketCreated='ticket:created',
-    TicketUpdated='ticket:updated',
+export enum Subjects {
+    // Ticket-related events
+    TicketCreated = 'ticket:created',
+    TicketUpdated = 'ticket:updated',
 
-    OrderCreated='order:created',
-    OrderCancelled='order:cancelled',
+    // Order-related events
+    OrderCreated = 'order:created',
+    OrderCancelled = 'order:cancelled',
 
-    ExpirationComplete= 'expiration:complete',
+    // Expiration-related events
+    ExpirationComplete = 'expiration:complete',
 
-    PaymentCreated='payment:created',
+    // Payment-related events
+    PaymentCreated = 'payment:created',
+
+    // Booking-related events
+    BookingCreated = 'booking:created',
+    BookingCancelled = 'booking:cancelled',
+    BookingFailed = "booking:failed",
+    BookingCompleted = "booking:completed",
+
+    // Bus-related events
+    BusCreated = 'bus:created',
+    BusUpdated = 'bus:updated',
+
+    // User-related events
+    UserRegistered = 'user:registered',
+    UserUpdated = 'user:updated',
 }

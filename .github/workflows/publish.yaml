@@ -25,6 +25,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'  # Change this to the version you need
+          
+      # Set Git user identity to avoid commit errors
+      - name: Set Git user identity
+        run: |
+          git config --global user.name "Josh"
+          git config --global user.email "selmathis15@gmail.com"
 
       # Install dependencies
       - name: Install dependencies

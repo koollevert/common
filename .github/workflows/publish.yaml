@@ -2,47 +2,39 @@ name: Publish Package
 
 on:
   push:
-    branches:
-      - main  # Trigger this on pushes to the 'main' branch
-  # You can also use other triggers like pull_request or schedule:
-  # pull_request:
-  #   branches:
-  #     - main
-  # schedule:
-  #   - cron: '0 0 * * *'  # Example: run every day at midnight
+    tags:
+      - 'v*.*.*'  # Triggers on version tag pushes (e.g., v1.0.0)
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout code
+      # Step 1: Checkout the repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Node.js
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Change this to the version you need
-          
-      # Set Git user identity to avoid commit errors
-      - name: Set Git user identity
-        run: |
-          git config --global user.name "Josh"
-          git config --global user.email "selmathis15@gmail.com"
+          node-version: '16'  # Specify the desired Node.js version (e.g., '16')
 
-      # Install dependencies
+      # Step 3: Authenticate with npm
+      - name: Authenticate with npm
+        run: npm config set '//registry.npmjs.org/:_authToken' ${{ secrets.NPM_TOKEN }}
+
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Run your script: npm version patch && npm run build && npm publish
-      - name: Run npm version, build, and publish
+      # Step 5: Clean the build directory (if needed) and run the build script
+      - name: Run build
+        run: npm run clean && npm run build
+
+      # Step 6: Version bump and publish to npm
+      - name: Version bump and publish
         run: |
-          npm version patch
-          npm run build
-          npm publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Make sure to add your NPM token to GitHub Secrets
-          
-      # Optionally, you can add steps for error handling or notifications if the publish fails.
+          npm version patch  # Increase patch version
+          npm run build      # Run the build again to ensure it’s fresh
+          npm publish        # Publish the package to npm

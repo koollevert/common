@@ -12,7 +12,7 @@ export enum Subjects {
     BookingCancelled = 'booking:cancelled',
     BookingFailed = "booking:failed",
     BookingCompleted = "booking:completed",
-
+////
     BusCreated = 'bus:created',
     BusUpdated = 'bus:updated',
     UserRegistered = 'user:registered',

@@ -1,40 +1,28 @@
-name: Publish to npm
+name: Release
 
-on:
+on
   push:
     branches:
-      - main # Trigger on changes to the main branch
+      -main
+      -next
+permissions:
+  contents: write
+  issues: write
+  pull-request: write
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20' 
-          registry-url: 'https://registry.npmjs.org/'
-
-      # Step 3: Authenticate with npm
-      - name: Authenticate with npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
-      # Step 4: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 5: Run tests (Optional but recommended)
-      - name: Run tests
-        run: npm test
-
-      # Step 6: Publish to npm
-      - name: Publish package
-        run: npm publish
+          node-version: "lts/*"
+      - run: npm ci
+      - run npm run build
+      - run npm audit signatures
+      - name: Release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npx semantic-release

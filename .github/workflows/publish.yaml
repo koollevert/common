@@ -1,0 +1,42 @@
+name: Publish Package
+
+on:
+  push:
+    branches:
+      - main  # Trigger this on pushes to the 'main' branch
+  # You can also use other triggers like pull_request or schedule:
+  # pull_request:
+  #   branches:
+  #     - main
+  # schedule:
+  #   - cron: '0 0 * * *'  # Example: run every day at midnight
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts'  # Change this to the version you need
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run your script: npm version patch && npm run build && npm publish
+      - name: Run npm version, build, and publish
+        run: |
+          npm version patch
+          npm run build
+          npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}  # Make sure to add your NPM token to GitHub Secrets
+          
+      # Optionally, you can add steps for error handling or notifications if the publish fails.

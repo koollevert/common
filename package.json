@@ -1,27 +1,22 @@
 {
   "name": "@selmathistckt/common",
-  "version": "1.0.27",
+  "version": "1.0.26",
   "description": "",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
     "build/**/*"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rmdir /s /q build",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
-    "semantic-release": "semantic-release"
+    "pub": "npm version patch && npm run build && npm publish"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "del-cli": "^5.1.0",
-    "semantic-release": "^24.2.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {

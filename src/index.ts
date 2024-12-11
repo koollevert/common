@@ -23,4 +23,6 @@ export * from './events/payment-created-event';
 export * from "./events/BookingCreatedEvent";
 export * from "./events/BookingCompletedEvent";
 export * from "./events/BookingCancelledEvent";
+export * from "./events/BusTicketCreatedEvent";
+export * from "./events/BusTicketUpdatedEvent";
 

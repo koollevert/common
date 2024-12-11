@@ -17,4 +17,6 @@ export enum Subjects {
     BusUpdated = 'bus:updated',
     UserRegistered = 'user:registered',
     UserUpdated = 'user:updated',
+    BusTicketCreated = 'ticket:created',
+    BusTicketUpdated = 'ticket:updated',
 }

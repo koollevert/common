@@ -1,14 +1,15 @@
 name: Release
 
-on
+on:
   push:
     branches:
-      -main
-      -next
+      - main
+      - next
+
 permissions:
   contents: write
   issues: write
-  pull-request: write
+  pull-requests: write
 
 jobs:
   release:
@@ -19,10 +20,10 @@ jobs:
         with:
           node-version: "lts/*"
       - run: npm ci
-      - run npm run build
-      - run npm audit signatures
+      - run: npm run build
+      - run: npm audit  # Corrected this line
       - name: Release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release

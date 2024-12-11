@@ -7,9 +7,7 @@ export enum Subjects {
     OrderCancelled = 'order:cancelled',
     
     ExpirationComplete = 'expiration:complete',
-
     PaymentCreated = 'payment:created',
-
     BookingCreated = 'booking:created',
     BookingCancelled = 'booking:cancelled',
     BookingFailed = "booking:failed",
@@ -17,7 +15,6 @@ export enum Subjects {
 
     BusCreated = 'bus:created',
     BusUpdated = 'bus:updated',
-
     UserRegistered = 'user:registered',
     UserUpdated = 'user:updated',
 }

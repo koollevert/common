@@ -7,10 +7,14 @@
   "files": [
     "build/**/*"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "clean": "rmdir /s /q build",
+    "clean": "rimraf build",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
+    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
+    "semantic-release": "semantic-release"
   },
   "keywords": [],
   "author": "",
